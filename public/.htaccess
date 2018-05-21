@@ -1,0 +1,5 @@
+<ifModule mod_rewrite.c>
+RewriteEngine on
+RewriteRule ^& publuc/ [L]
+RewriteRule (.*) publuc/$1 [L]
+</IfModule>
