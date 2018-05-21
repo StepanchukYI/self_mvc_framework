@@ -14,6 +14,17 @@ class Router
 	protected $params;
 	protected $route;
 	protected $method_prefix;
+	protected static $attributes = array();
+
+	/**
+	 * @return array
+	 */
+	public static function getAttributes()
+	: array
+	{
+		return self::$attributes;
+	}
+
 
 	/**
 	 * @return mixed
@@ -63,49 +74,70 @@ class Router
 		return $this->method_prefix;
 	}
 
+	/**
+	 * @param $item
+	 *
+	 * @return mixed|null
+	 */
+	public static function get( $item )
+	{
+		return isset( self::$attributes[ $item ] ) ? self::$attributes[ $item ] : null;
+	}
 
 	/**
 	 * Router constructor.
 	 *
 	 * @param $url
 	 */
-	public function __construct($url)
+	public function __construct( $url )
 	{
-		$this->url = urldecode(trim($url, '/'));
+		$this->url = urldecode( trim( $url, '/' ) );
 
-		$routes = Config::get('routes');
-		$this->route = Config::get('default_route');
-		$this->method_prefix = isset($routes[$this->route]) ? $routes[$this->route] : '';
+		$routes              = Config::get( 'routes' );
+		$this->route         = Config::get( 'default_route' );
+		$this->method_prefix = isset( $routes[ $this->route ] ) ? $routes[ $this->route ] : '';
 
-		$this->controller = Config::get('default_controller');
-		$this->action = Config::get('default_action');
+		$this->controller = Config::get( 'default_controller' );
+		$this->action     = Config::get( 'default_action' );
 
-		$url_part = explode('?', $this->url);
+		$url_part = explode( '?', $this->url );
 
 		$path = $url_part[0];
 
-		$path_part = explode('/', $path);
+		$path_part = explode( '/', $path );
 
-		if( in_array(strtolower(current($path_part)), array_keys($routes)) ){
-			$this->route = strtolower(current($path_part));
-			$this->method_prefix = isset($routes[$this->route]) ? $routes[$this->route] : '';
-			array_shift($path_part);
+		if ( in_array( strtolower( current( $path_part ) ), array_keys( $routes ) ) )
+		{
+			$this->route         = strtolower( current( $path_part ) );
+			$this->method_prefix = isset( $routes[ $this->route ] ) ? $routes[ $this->route ] : '';
+			array_shift( $path_part );
 		}
 
-		if(current($path_part)){
-			$this->controller = strtolower(current($path_part));
-			array_shift($path_part);
+		if ( current( $path_part ) )
+		{
+			$this->controller = strtolower( current( $path_part ) );
+			array_shift( $path_part );
 		}
 
-		if(current($path_part)){
-			$this->action = strtolower(current($path_part));
-			array_shift($path_part);
+		if ( current( $path_part ) )
+		{
+			$this->action = strtolower( current( $path_part ) );
+			array_shift( $path_part );
 		}
 
 		$this->params = $path_part;
 
-	}
+		foreach ( $_GET as $key => $value )
+		{
+			self::$attributes[ $key ] = $value;
+		}
 
+		foreach ( $_POST as $key => $value )
+		{
+			self::$attributes[ $key ] = $value;
+		}
+
+	}
 
 
 }

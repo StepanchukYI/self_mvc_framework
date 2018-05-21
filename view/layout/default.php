@@ -5,7 +5,6 @@
  * Date: 21.05.2018
  * Time: 23:26
  */
-include( 'header.php' );
 ?>
 <?php include('head.php')?>
 <body>

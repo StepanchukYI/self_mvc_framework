@@ -7,5 +7,4 @@
  */
 
 ?>
-<pre>
-    <?=print_r($data['test_content'])?>
+
