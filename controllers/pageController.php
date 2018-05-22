@@ -9,11 +9,27 @@
 class PageController extends Controller
 {
 
+	public function __construct( array $data = array() )
+	{
+		parent::__construct( $data );
+		$this->model = new Product();
+	}
+
 	public function index()
 	{
-		App::$db->query( 'SELECT * FROM menus ' );
+		var_dump($this->model->all());die();
+
 		$this->data['test_content'] = App::$db->query( 'SELECT * FROM categories ' );
 
+	}
+
+	public function admin_index()
+	{
+		if($_COOKIE['auth']){
+			header("Location: " . $_SERVER['HTTP_HOST'] . '/admin/dashboard');
+		}else{
+			header("Location: " . $_SERVER['HTTP_HOST'] . '/admin/auth');
+		}
 	}
 
 	public function view()

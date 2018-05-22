@@ -25,3 +25,11 @@ Config::set('db.host', 'localhost');
 Config::set('db.name', 'onix');
 Config::set('db.user', 'root');
 Config::set('db.password', 'Cntgfyxer1');
+
+
+Config::set('mail.host', 'smtp.gmail.com');
+Config::set('mail.from', 'Evgeniy Stepanchuk <bodunjo855@gmail.com>');
+Config::set('mail.port', '587');
+Config::set('mail.user', 'bodunjo855@gmail.com');
+Config::set('mail.password', 'Cntgfyxer123');
+Config::set('mail.encryption', 'tls');

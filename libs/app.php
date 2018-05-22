@@ -11,6 +11,8 @@ class App
 
 	protected static $router;
 
+	public static $mail;
+
 	public static $db;
 
 
@@ -25,6 +27,8 @@ class App
 	public static function run( $url )
 	{
 		self::$router = new Router( $url );
+
+		self::$router = new Mail;
 
 		self::$db = new Database( Config::get( 'db.host' ), Config::get( 'db.user' ), Config::get( 'db.password' ), Config::get( 'db.name' ) );
 
