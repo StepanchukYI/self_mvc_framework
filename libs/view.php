@@ -17,14 +17,15 @@ class View
 	{
 		$router = App::getRouter();
 
-		if(! $router){
+		if ( ! $router )
+		{
 			return false;
 		}
 
 		$controller_dir = $router->getController();
-		$template_name = $router->getMethodPrefix().$router->getAction(). '.php';
+		$template_name  = $router->getMethodPrefix() . $router->getAction() . '.php';
 
-		return VIEWS_PATH.DS.$controller_dir.DS.$template_name;
+		return VIEWS_PATH . DS . $controller_dir . DS . $template_name;
 	}
 
 	public function __construct( $data = array(), $path = null )
@@ -44,16 +45,16 @@ class View
 
 	}
 
-	public function render(){
+	public function render()
+	{
 		$data = $this->data;
 
 		ob_start();
-		include ($this->path);
+		include( $this->path );
 		$content = ob_get_clean();
 
 		return $content;
-		}
-
+	}
 
 
 }

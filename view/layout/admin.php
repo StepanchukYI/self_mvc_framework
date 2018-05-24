@@ -3,9 +3,11 @@
  * Created by PhpStorm.
  * User: b0dun
  * Date: 21.05.2018
- * Time: 23:37
+ * Time: 23:26
  */
 ?>
+<?php include( 'head.php' ) ?>
+<body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -21,6 +23,21 @@
             <li class="nav-item dropdown">
                 <a class="nav-link" href="/admin">Admin Panel <span class="sr-only">(current)</span></a>
             </li>
+            <?php if($_COOKIE{'auth'}){?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="/admin/order">Orders List <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="/admin/product">Products List <span class="sr-only">(current)</span></a>
+                </li>
+            <?php }?>
         </ul>
     </div>
 </nav>
+
+<?= $data['content']; ?>
+
+<?php include( 'footer.php' ); ?>
+</body>
+
+

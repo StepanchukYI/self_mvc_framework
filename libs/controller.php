@@ -38,9 +38,9 @@ class Controller
 		return $this->params;
 	}
 
-	public function __construct($data = array())
+	public function __construct( $data = array() )
 	{
-		$this->data = $data;
+		$this->data   = $data;
 		$this->params = App::getRouter()->getParams();
 	}
 }

@@ -6,12 +6,12 @@
  * Time: 23:26
  */
 ?>
-<?php include('head.php')?>
+<?php include( 'head.php' ) ?>
 <body>
 <?php include( 'header.php' );
 ?>
 
-<?= $data['content'] ?>
+<?= $data['content']; ?>
 
 <?php include( 'footer.php' ); ?>
 </body>

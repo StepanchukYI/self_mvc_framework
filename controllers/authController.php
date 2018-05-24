@@ -19,10 +19,10 @@ class AuthController extends Controller
 	{
 		if ( $_COOKIE['auth'] )
 		{
-			header( "Location: " . $_SERVER['HTTP_HOST'] . '/admin/dashboard' );
+			header( "Location: /admin/auth/dashboard" );
 		}
 
-		if ( App::getRouter()->get( 'email' ) )
+		if ( $_POST && App::getRouter()->get( 'email' ) )
 		{
 			$code = App::$mail->sendAuthMail( App::getRouter()->get( 'email' ) );
 
@@ -30,6 +30,9 @@ class AuthController extends Controller
 				'email'    => App::getRouter()->get( 'email' ),
 				'password' => $code
 			] );
+
+			header( "Location: /admin/auth/password" );
+
 		}
 
 	}
@@ -38,19 +41,18 @@ class AuthController extends Controller
 	{
 		if ( $_COOKIE['auth'] )
 		{
-			header( "Location: " . $_SERVER['HTTP_HOST'] . '/admin/dashboard' );
+			header( "Location: /admin/auth/dashboard" );
 		}
 
-		if ( App::getRouter()->get( 'email' ) && App::getRouter()->get( 'password' ) )
+		if ( $_POST && App::getRouter()->get( 'email' ) && App::getRouter()->get( 'password' ) )
 		{
-			$model = $this->model->select()->where( 'email', '=', App::getRouter()->get( 'email' ) )->where( 'password', '=', App::getRouter()->get( 'password' ) )
-			if($model){
-				$_COOKIE['auth'] = true;
-			}else{
-				$this->data['error'] = 'Неправильный пароль';
-			}
+//			$model = $this->model->select()->where( 'email', '=', App::getRouter()->get( 'email' ) )->where( 'password', '=', App::getRouter()->get( 'password' ) )
+//			if($model){
+//				$_COOKIE['auth'] = true;
+//			}else{
+//				$this->data['error'] = 'Неправильный пароль';
+//			}
 		}
-		header( "Location: " . $_SERVER['HTTP_HOST'] . '/admin/dashboard' );
 	}
 
 }

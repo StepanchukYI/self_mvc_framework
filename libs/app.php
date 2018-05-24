@@ -28,7 +28,7 @@ class App
 	{
 		self::$router = new Router( $url );
 
-		self::$router = new Mail;
+		self::$mail = new Mail;
 
 		self::$db = new Database( Config::get( 'db.host' ), Config::get( 'db.user' ), Config::get( 'db.password' ), Config::get( 'db.name' ) );
 

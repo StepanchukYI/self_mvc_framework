@@ -22,20 +22,12 @@ class Mail
 		$this->username = Config::get( 'mail.user' );
 		$this->password = Config::get( 'mail.password' );
 		$this->from     = Config::get( 'mail.from' );
-
-		$this->mail = Mail::factory( 'smtp',
-			array(
-				'host'     => $this->host,
-				'auth'     => true,
-				'username' => $this->username,
-				'password' => $this->password
-			) );
 	}
 
 	public function sendMail( $to, $subject, $body )
 	{
 		// ERROR MESSAGES
-		$send  = mail( $to, $subject, $body, 'From: '. $this->from );
+		$send = mail( $to, $subject, $body, 'From: ' . $this->from );
 		if ( $send )
 		{
 			header( "Location: http://mysite.com/send.php" );
@@ -47,14 +39,14 @@ class Mail
 
 	public function sendAuthMail( $to )
 	{
-		$string = rand(100000, 999999 );
+		$string = rand( 100000, 999999 );
 
+		return $string;
 
 		// ERROR MESSAGES
-		$send  = mail( $to, 'Auth', $string, 'From: '. $this->from );
+//		$send = mail( $to, 'Auth', $string, 'From: ' . $this->from );
 		if ( $send )
 		{
-			return $string;
 		} else
 		{
 			print "MISSING EMAIL ADDRESS ALL FILDS MUST BE FILLED!";

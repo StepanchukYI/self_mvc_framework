@@ -3,13 +3,12 @@
  * Created by PhpStorm.
  * User: b0dun
  * Date: 22.05.2018
- * Time: 19:37
+ * Time: 22:03
  */
 
-class Product extends Model
+class Admin extends Model
 {
-
-	protected $table = "menus";
+	protected $table = "admin_users";
 
 
 }

@@ -17,18 +17,18 @@ class PageController extends Controller
 
 	public function index()
 	{
-		var_dump($this->model->all());die();
-
-		$this->data['test_content'] = App::$db->query( 'SELECT * FROM categories ' );
+		$this->data['products'] = $this->model->all();
 
 	}
 
 	public function admin_index()
 	{
-		if($_COOKIE['auth']){
-			header("Location: " . $_SERVER['HTTP_HOST'] . '/admin/dashboard');
-		}else{
-			header("Location: " . $_SERVER['HTTP_HOST'] . '/admin/auth');
+		if ( $_COOKIE['auth'] )
+		{
+			header( "Location: /admin/dashboard" );
+		} else
+		{
+			header( "Location: /admin/auth" );
 		}
 	}
 
