@@ -31,3 +31,7 @@
 	<?php } ?>
 	</tbody>
 </table>
+
+
+<input type="file" class="import_data">
+<button class="export_data">Экспорт</button>

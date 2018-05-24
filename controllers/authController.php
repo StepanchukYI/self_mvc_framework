@@ -87,6 +87,37 @@ class AuthController extends Controller
 		}
 	}
 
+	public function admin_order_export()
+	{
+		$orderModel = new Order();
+		$orders = $orderModel->all();
+
+		if($orders){
+			$fileName = date("Y-m-d_h-m-s")."_export.json";
+			$name = "../public/export/" . $fileName;
+
+			$test = json_encode($orders);
+
+			file_put_contents($name, $test, FILE_APPEND);
+		}
+
+
+		die();
+	}
+
+	public function admin_order_import()
+	{
+		$orderModel = new Order();
+		$orders = $orderModel->all();
+
+		if($orders){
+
+		}
+
+		echo json_encode(['success' => 1]);
+		die();
+	}
+
 	public function admin_products()
 	{
 		$product = new Product();

@@ -53,4 +53,18 @@ $(function () {
         console.log($(this).data('id'));
         window.location.href = '/admin/auth/order_view/' + $(this).data('id');
     });
+
+    $('.export_data').click(function () {
+        $.post('/admin/auth/order_export', $(this).serialize(), function (data) {
+            data = JSON.parse(data);
+            if (data.success === 1) {
+                alert("Успешно!");
+                window.location.href = data.url;
+            }
+            else if (data.error) {
+                alert(data.error);
+            }
+        })
+    });
+
 });
