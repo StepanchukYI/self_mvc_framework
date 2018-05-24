@@ -12,5 +12,7 @@
         <label for="email">Email</label>
         <input type="email" class="form-control" id="email" name="email" aria-describedby="email" placeholder="Enter your email">
     </div>
+    <div id="password_div" style="display: none" class="form-group">
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

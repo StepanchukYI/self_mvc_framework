@@ -45,7 +45,7 @@ class Model
 
 		$sql .= ' WHERE id = ' . $id;
 
-		return $this->database->query( $sql );
+		return $this->database->query( $sql )[0];
 	}
 
 	/**
@@ -80,13 +80,13 @@ class Model
 
 		//INSERT INTO table_name (column1, column2, column3, ...)
 		//VALUES (value1, value2, value3, ...);
-		$keys     = '( ';
-		$values   = 'VALUES ( ';
+		$keys     = " (";
+		$values   = "VALUES (";
 		$last_key = end( array_keys( $data ) );
 		foreach ( $data as $key => $value )
 		{
 			$keys   .= $key;
-			$values .= $values;
+			$values .= "'".$value."'";
 
 			if ( $key != $last_key )
 			{
@@ -98,9 +98,34 @@ class Model
 		$values .= ')';
 
 		$sql .= $keys . $values;
-
+//		var_dump($sql);die();
 		return $this->database->query( $sql );
 	}
 
+	public function update($data = array(), $id){
+
+		$sql = "UPDATE " . $this->getTable();
+
+		//SET column1 = value1, column2 = value2, ...
+		$values   = " SET ";
+		$last_key = end( array_keys( $data ) );
+		foreach ( $data as $key => $value )
+		{
+			$values .= $key . " = '" . $value. "' ";
+
+			if ( $key != $last_key )
+			{
+				$values .= ', ';
+			}
+		}
+		$sql .= $values;
+
+		//WHERE condition;
+		$sql .= " WHERE id = ". $id;
+//		var_dump($sql);die();
+		return $this->database->query( $sql );
+	}
+
+//UPDATE table_name
 
 }

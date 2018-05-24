@@ -19,13 +19,46 @@ class PageController extends Controller
 	{
 		$this->data['products'] = $this->model->all();
 
+		if ( $_POST && App::getRouter()->getAttributes() != null )
+		{
+			$order = new Order();
+
+			$product = $this->model->find(App::getRouter()->get('product_id'));
+
+			if($product){
+				$order->insert( [
+					'name' => App::getRouter()->get('name'),
+					'product_id' => $product['id'],
+					'price' => $product['price'],
+					'comment' => App::getRouter()->get('comment'),
+					'phone' => App::getRouter()->get('phone')
+				] );
+				if ( $order )
+				{
+					echo json_encode(['success' => 1]);
+					die();
+				} else
+				{
+					echo json_encode(['error' => 'Что-то пошло не так!']);
+					die();
+				}
+			}else{
+				echo json_encode(['error' => 'Товар не найден']);
+				die();
+			}
+
+
+
+
+		}
+
 	}
 
 	public function admin_index()
 	{
 		if ( $_COOKIE['auth'] )
 		{
-			header( "Location: /admin/dashboard" );
+			header( "Location: /admin/auth/dashboard" );
 		} else
 		{
 			header( "Location: /admin/auth" );

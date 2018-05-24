@@ -25,10 +25,10 @@
             </li>
             <?php if($_COOKIE{'auth'}){?>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="/admin/order">Orders List <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/admin/auth/orders">Orders List <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="/admin/product">Products List <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/admin/auth/products">Products List <span class="sr-only">(current)</span></a>
                 </li>
             <?php }?>
         </ul>

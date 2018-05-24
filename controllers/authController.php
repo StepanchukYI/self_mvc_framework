@@ -24,6 +24,25 @@ class AuthController extends Controller
 
 		if ( $_POST && App::getRouter()->get( 'email' ) )
 		{
+			if( $_POST && App::getRouter()->get( 'password' ) != null){
+
+				$query = "WHERE email = '". App::getRouter()->get( 'email' ) . "' AND password = '". App::getRouter()->get( 'password' )."'";
+				$model = $this->model->query($query);
+
+				if($model){
+					setcookie('auth', true);
+
+					echo json_encode(['success' => 2]);
+					die();
+				}else{
+					$this->data['error'] = 'Неправильный пароль';
+
+					echo json_encode(['error' => 'Неправильный пароль']);
+					die();
+				}
+
+
+			}
 			$code = App::$mail->sendAuthMail( App::getRouter()->get( 'email' ) );
 
 			$this->model->insert( [
@@ -31,28 +50,47 @@ class AuthController extends Controller
 				'password' => $code
 			] );
 
-			header( "Location: /admin/auth/password" );
+			echo json_encode(['success' => 1]);
+			die();
 
 		}
 
 	}
 
-	public function admin_password()
+	public function admin_dashboard()
 	{
-		if ( $_COOKIE['auth'] )
-		{
-			header( "Location: /admin/auth/dashboard" );
+
+	}
+
+	public function admin_orders()
+	{
+		$orders = new Order();
+		$this->data['orders'] = $orders->all();
+	}
+
+	public function admin_order_view()
+	{
+		$orderModel = new Order();
+		$order = $orderModel->find(App::getRouter()->getParams()[0]);
+
+		if($order){
+			$this->data['order'] = $order;
 		}
 
-		if ( $_POST && App::getRouter()->get( 'email' ) && App::getRouter()->get( 'password' ) )
+		if ( $_POST && App::getRouter()->getAttributes() )
 		{
-//			$model = $this->model->select()->where( 'email', '=', App::getRouter()->get( 'email' ) )->where( 'password', '=', App::getRouter()->get( 'password' ) )
-//			if($model){
-//				$_COOKIE['auth'] = true;
-//			}else{
-//				$this->data['error'] = 'Неправильный пароль';
-//			}
+			$orderModel->update(App::getRouter()->getAttributes(), $order['id']);
+
+			echo json_encode(['success' => 1]);
+			die();
+
 		}
+	}
+
+	public function admin_products()
+	{
+		$product = new Product();
+		$this->data['products'] = $product->all();
 	}
 
 }

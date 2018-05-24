@@ -22,7 +22,7 @@ Config::set( 'default_action', 'index' );
 
 
 Config::set( 'db.host', 'localhost' );
-Config::set( 'db.name', 'onix' );
+Config::set( 'db.name', 'mvc' );
 Config::set( 'db.user', 'root' );
 Config::set( 'db.password', 'Cntgfyxer1' );
 

@@ -8,7 +8,7 @@
 
 class Product extends Model
 {
-	protected $table = "menus";
+	protected $table = "products";
 
 
 }
